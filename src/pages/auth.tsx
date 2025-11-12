@@ -35,10 +35,11 @@ export default function Auth() {
         if (error) setError(error.message);
         else router.push("/dashboard");
       }
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+    } else {
+      setError("An unexpected error occured.");
     }
   };
 
@@ -88,4 +89,5 @@ export default function Auth() {
       </div>
     </div>
   );
+} 
 }
